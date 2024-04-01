@@ -3,10 +3,10 @@ import './App.css';
 import Navbar from './components/Navbar';
 import About from './components/About';
 import TextForm from './components/TextForm';
-import React ,{useState} from 'react';
+import React, {useState} from 'react';
 import Alert from './components/Alert';
 // react router code
-import { BrowserRouter as Router, Switch, Route, Link, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 function App() {
   const [mode,setMode] = useState('light'); // whether dark mode is enable or not
@@ -26,7 +26,7 @@ function App() {
       setMode('dark');
       document.body.style.backgroundColor = '#042747'; // jab darkmode on kre tab backgrorund ka color bhi change ho
       showAlert("Dark mode has been enabled","success"); // ki jab dark mode enabled krenge tab alert aaye
-      document.title = 'TextUtils - Dark Mode';
+      // document.title = 'TextUtils - Dark Mode';
       //title ko blink krne ke ley
       // setInterval(() => {
       //   document.title = 'TextUtils is amazing mode';
@@ -39,23 +39,24 @@ function App() {
       setMode('light');
       document.body.style.backgroundColor = 'white';// jab darkmode on kre tab backgrorund ka color bhi change ho
       showAlert("Light mode has been enabled","success");
-      document.title = 'TextUtils - Light Mode'; // title ke sath m likha huya aa jaye light mode
+      // document.title = 'TextUtils - Light Mode'; // title ke sath m likha huya aa jaye light mode
     }
   }
   return (
     <>
     {/* props = aisa react component bna leya hai jiska hum title change kar skte hai ki hme doosri website bhi bnani pad gyi to hum title change krke esi navbar ko utilize kar skte hai */}
 {/* <Navbar title="TextUtils" aboutText="About Us" /> */}
-{/* <Navbar /> */}
+
 <Router>
-<Navbar title="TextUtils" mode={mode} toggleMode={toggleMode} />
 {/* alert ko pass kar deya isme */}
+
+<Navbar title="TextUtils" mode={mode} toggleMode={toggleMode} />
 <Alert alert={alert} /> 
 <div className="container my-3">
   {/* react router code */}
   <Routes>
-    <Route exact path="/About" element={<About/>} />
-    <Route exact path="/" element={<TextForm showAlert={showAlert} heading="Enter you text here" mode={mode}/>} />
+  <Route exact path="/About" element={<About mode={mode} />} />
+  <Route exact path="/" element={<TextForm showAlert={showAlert} heading="Enter your text here" mode={mode}/>} />
   </Routes>
   </div>
   </Router>
